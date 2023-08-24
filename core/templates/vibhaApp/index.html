@@ -1,0 +1,95 @@
+{% extends 'basic.html' %}
+{% block title %}{{title}}{% endblock title %}
+{% block css %}{% endblock css %}
+{% block main %}
+
+{% load static %}
+
+    <div id="carouselExampleAutoplaying" class="carousel slide mt-2" data-bs-ride="carousel">
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'images/cr-img1.jpg' %}" class="d-block cr-img" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/cr-img2.jpg' %}" class="d-block cr-img" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/cr-img3.jpg' %}" class="d-block cr-img" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/cr-img4.jpg' %}" class="d-block cr-img" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/cr-img5.jpg' %}" class="d-block cr-img" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/cr-img6.JPEG' %}" class="d-block cr-img" alt="...">
+        </div>
+        
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden"></span>
+      </button>
+    </div>
+
+    <main class="main-content">
+      <div class="about-vibha position-relative">
+        <h2 class="main-content-header">About Vibha</h2>
+        <div class="supportive-box"></div>
+        <p class="content">India faces critical challenges as a nation in its march towards a welfare state. Considering the nature of the challenges which are so unique, only rapid strides in the sector of science and technology, in resonance with India’s heritage can meet those challenges. In this context Vijnanabharati, a science movement with swadeshi spirit has a greater role to play.
+
+          Swadeshi Science Movement was started in Indian Institite of Science- (Bengaluru) by a few eminent scientists under the guidance of Prof. K I Vasu. This movement gradually gained momentum and emerged as an organization with national presence. In 1991(Oct 20-21) at the Nagpur meet, it was decided, to launch the Swadeshi Science Movement at all India Level and named it as Vijnana Bharati.
+          
+          Vijnana Bharati has units in 22 states across the country and contacts in 4 states. It is working in 11 different areas through autonomous institutions, independent organizations & also as project entities.</p>
+        <button>CLICK HERE</button>
+      </div>
+      <div class="aim position-relative">
+        <h2 class="main-content-header">Aims & Objectives</h2>
+        <div class="supportive-box"></div>
+        <ul style="margin-top: 3rem;width: 88%;">
+
+          <li>To champion the cause of Bharatiya Heritage with a harmonious synthesis of physical and spiritual sciences
+            which nourish each other and flourish together.</li>
+          <li>To rejuvenate the Swadeshi Movement in this age of science and technology for the purpose of national
+            reconstruction.</li>
+          <li>To spearhead the Movement for Swadeshi Sciences and technologies such as Ayurveda, Siddha, Meditation,
+            Organic Agriculture, Vastuvidya, Forestry, Astronomy, Environment, Engineering and the like.</li>
+          <li>To activate the Science Movement with a Swadeshi fervor in all the Bharatiya languages and at all levels,
+            also through the mass media.</li>
+        </ul>
+
+        <button>CLICK HERE</button>
+      </div>
+      <div class="social-area">
+        <div class="card-group social-accounts">
+          <div class="card scroll-container">
+            <iframe
+              src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fvigyanbharatiawadh.researchers%2Fposts%2Fpfbid07qjRhpKstWDHH9n2xVYPfyQe7emFZjPRhpZGasy6BFGWvp6ZDjm3DPSdG2nBqf4Yl&show_text=true&width=500"
+              width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+              allowfullscreen="true"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+          </div>
+          <div class="card scroll-container">
+            <a class="twitter-timeline" href="https://twitter.com/Vibha_India?ref_src=twsrc%5Etfw">Tweets by
+              Vibha_India</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div class="card scroll-container">
+            <a class="twitter-timeline" href="https://twitter.com/Vibha_India?ref_src=twsrc%5Etfw">Tweets by
+              Vibha_India</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+{% endblock main %}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Registration Form with Bootstrap Pagination</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2>Registration Form</h2>
+    <div id="registrationForm">
+      <!-- Section 1 -->
+      <div class="page section1">
+        <h3>Step 1: Personal Information</h3>
+        <form>
+          <!-- Add your personal information fields here -->
+          <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" name="firstName">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" name="lastName">
+          </div>
+          <!-- Add other personal information fields here -->
+          <button type="button" class="btn btn-primary nextBtn">Next</button>
+        </form>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="page section2">
+        <h3>Step 2: Contact Information</h3>
+        <form>
+          <!-- Add your contact information fields here -->
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+          </div>
+          <!-- Add other contact information fields here -->
+          <button type="button" class="btn btn-primary prevBtn">Previous</button>
+          <button type="button" class="btn btn-primary nextBtn">Next</button>
+        </form>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="page section3">
+        <h3>Step 3: Account Information</h3>
+        <form>
+          <!-- Add your account information fields here -->
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+          <!-- Add other account information fields here -->
+          <button type="button" class="btn btn-primary prevBtn">Previous</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bootstrap Pagination -->
+    <ul class="pagination">
+      <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+      <li class="page-item active section1-page"><a class="page-link" href=".section1">1</a></li>
+      <li class="page-item section2-page"><a class="page-link" href=".section2">2</a></li>
+      <li class="page-item section3-page"><a class="page-link" href=".section3">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </div>
+
+  <!-- Add Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // JavaScript to handle the pagination navigation
+    const pages = document.querySelectorAll('.page');
+    const paginationLinks = document.querySelectorAll('.pagination li');
+
+    function showPage(sectionToShow) {
+      pages.forEach(page => page.classList.remove('active'));
+      paginationLinks.forEach(link => link.classList.remove('active'));
+
+      document.querySelector(sectionToShow).classList.add('active');
+      document.querySelector(`.${sectionToShow}-page`).classList.add('active');
+    }
+
+    paginationLinks.forEach(link => {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (!this.classList.contains('disabled')) {
+          const targetSection = this.querySelector('a').getAttribute('href');
+          showPage(targetSection);
+        }
+      });
+    });
+
+    // Show the first section by default
+    showPage('.section1');
+  </script>
+</body>
+
+</html>
