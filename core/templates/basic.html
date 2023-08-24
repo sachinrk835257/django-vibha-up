@@ -37,7 +37,7 @@
                   href="mailto:vibhabharatiupawadh@gmail.com">vibhabharatiupawadh@gmail.com</a>
               </p>
               <div class="login-area">
-                <a href="registration.html"><i class="fa-solid fa-user"></i> New Registration</a>
+                <a href="registration/"><i class="fa-solid fa-user"></i> New Registration</a>
                 <a class="seperator" data-bs-toggle="modal" data-bs-target="#myModal" href="##"><i
                     class="fa-solid fa-lock"></i> Sign In</a>
               </div>
@@ -47,7 +47,7 @@
       
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand d-flex align-items-center justify-content-center" href="/">
+              <a class="navbar-brand d-flex align-items-center justify-content-center" href="">
                 <div><img class="logo" src="{% static 'images/vibha bharati logo2.jpg' %}" alt="error"></div>
                 <div><span>VIBHA UP(AWADH)</span></div>
               </a>
@@ -57,28 +57,28 @@
               </button>
               <div class="collapse navbar-collapse" id="main_nav" style="justify-content: end;">
                 <ul class="navbar-nav">
-                  <li class="nav-item position-relative"> <a class="nav-link" href="index.html">Home </a> </li>
+                  <li class="nav-item position-relative"> <a class="nav-link" href="http://127.0.0.1:8000/"> Home </a> </li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle" href="##" data-bs-toggle="dropdown">About Us</a>
+                    <a class="nav-link  dropdown-toggle" href="##" data-bs-toggle="dropdown">About</a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="about/"> About Us</a></li>
-                      <li><a class="dropdown-item" href="aims/"> Aims And Objectives </a></li>
+                      <li><a class="dropdown-item" href="http://127.0.0.1:8000/about/"> About Us</a></li>
+                      <li><a class="dropdown-item" href="/aims/"> Aims And Objectives </a></li>
                       <li><a class="dropdown-item" href="#"> Our National Team </a></li>
-                      <li><a class="dropdown-item" href="our-team/"> Our UP(AWADH) Team </a></li>
+                      <li><a class="dropdown-item" href="http://127.0.0.1:8000/our-team/"> Our UP(AWADH) Team </a></li>
                     </ul>
                   </li>
-                  <li class="nav-item position-relative"><a class="nav-link" href="our-team/"> Our Team </a></li>
-                  <li class="nav-item position-relative"><a class="nav-link" href="events/"> Events </a></li>
+                  <li class="nav-item position-relative"><a class="nav-link" href="http://127.0.0.1:8000/our-team/"> Our Team </a></li>
+                  <li class="nav-item position-relative"><a class="nav-link" href="http://127.0.0.1:8000/events/"> Events </a></li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Membership </a>
+                    <a class="nav-link  dropdown-toggle" href="" data-bs-toggle="dropdown"> Membership </a>
                     <ul class="dropdown-menu">
-                      <li class="position-relative"><a class="dropdown-item" href="membership/"> Join Membership</a></li>
-                      <li class="position-relative"><a class="dropdown-item" href="our-members/"> Our Members </a></li>
+                      <li class="position-relative"><a class="dropdown-item" href="http://127.0.0.1:8000/membership/"> Join Membership</a></li>
+                      <li class="position-relative"><a class="dropdown-item" href="http://127.0.0.1:8000/our-members/"> Our Members </a></li>
       
                     </ul>
                   </li>
-                  <li class="nav-item position-relative"><a class="nav-link" href="photo-gallery/"> Photo Gallery </a></li>
-                  <li class="nav-item position-relative"><a class="nav-link" href="contact/"> Contact Us </a></li>
+                  <li class="nav-item position-relative"><a class="nav-link" href="http://127.0.0.1:8000/photo-gallery/"> Photo Gallery </a></li>
+                  <li class="nav-item position-relative"><a class="nav-link" href="http://127.0.0.1:8000/contact/"> Contact Us </a></li>
       
                 </ul>
               </div> <!-- navbar-collapse.// -->
@@ -89,10 +89,7 @@
 
 
 
-    {% block main %}
-    
-    
-    {% endblock main %}
+    {% block main %}  {% endblock main %}
     <div class="main-content">
         <div class="features">
             <h2 class="center-header">Entities & Initiatives</h2>
@@ -139,7 +136,7 @@
         </div>
     </div>
    
-<footer>
+<footer style="color: white;">
     <div class="footer-top position-relative" style="padding-top: 3rem;">
         <h2 class="main-content-header">Become Life Member</h2>
         <div class="supportive-box"></div>
@@ -184,7 +181,7 @@
   
               <ul>
                 <li class="mb-2 text-left">
-                  <a href="#!" class="text-white">Vigayn Bharati MP
+                  <a href="http://127.0.0.1:8000/" class="text-white">Vigayn UP
                   </a>
                 </li>
                 <li class="mb-2 text-left">
@@ -204,7 +201,7 @@
                   </a>
                 </li>
                 <li class="mb-2 text-left">
-                  <a href="#!" class="text-white">World Ayurveda Congress</a>
+                  <a href="#" class="text-white">World Ayurveda Congress</a>
                 </li>
               </ul>
             </div>
@@ -273,7 +270,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <a href="registration/">New User ?</a>
+        <a href="http://127.0.0.1:8000/registration/">New User ?</a>
         <a href="##">Forget Password</a>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-danger">Submit</button>

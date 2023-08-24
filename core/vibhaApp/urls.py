@@ -4,8 +4,8 @@ from vibhaApp import views
 
 urlpatterns = [
     path('', views.index , name="go to vibha App"),
-    path('about-us/',views.about, name="about page"),
-    path('contact-us/',views.contact, name="about page"),
+    path('about/',views.about, name="about page"),
+    path('contact/',views.contact, name="about page"),
     path('aims/',views.aims, name="about page"),
     path('events/',views.events, name="about page"),
     path('members/',views.members, name="about page"),
