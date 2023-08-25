@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (el_link != null) {
                     let nextEl = el_link.nextElementSibling;
                     el_link.classList.remove('show');
-                    nextEl.classList.remove('show');               }
+                    nextEl.classList.remove('show');
+                }
             })
         });
 
@@ -78,19 +79,42 @@ document.addEventListener("DOMContentLoaded", function () {
     var numbering = document.querySelectorAll('.progress .numbering');
     var progressBar = this.documentElement.querySelectorAll('.progress .progress-bar')
     var count = 1
+    console.log(area)
 
     area.addEventListener('click', function (e) {
-        if (e.target.classList.contains('nextBtn')) {
+        console.log(e.target)
+        if (e.target.classList.contains('forward')) {
+            let targeted = e.target.parentElement.parentElement
+            console.log(targeted.id)
+            const inputs = document.querySelectorAll(targeted.id);
+            let isEmpty = false;
 
-            numbering[count].classList.add('next-numbering');
-            progressBar[count].classList.add('next-progress-bar')
+            inputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    isEmpty = true;
+                    input.style.borderColor = 'red'; // Optional: Highlight empty fields
+                } else {
+                    input.style.borderColor = ''; // Optional: Reset border color
+                }
+            });
 
-            e.target.parentElement.parentElement.style.display = 'none';
-            e.target.parentElement.parentElement.nextElementSibling.style.display = 'block';
-            count += 1
+            if (isEmpty) {
+                alert('Please fill in all the required fields.');
+            }
+            else {
+
+                numbering[count].classList.add('next-numbering');
+                progressBar[count].classList.add('next-progress-bar')
+    
+                e.target.parentElement.parentElement.style.display = 'none';
+                e.target.parentElement.parentElement.nextElementSibling.style.display = 'block';
+                count += 1
+            }
 
 
-        } if (e.target.classList.contains('prevBtn')) {
+
+        }
+        if (e.target.classList.contains('prevBtn')) {
             count -= 1
             progressBar[count].classList.remove('next-progress-bar')
             numbering[count].classList.remove('next-numbering');
@@ -211,28 +235,3 @@ cnfrmPasswordInput.addEventListener('keyup', () => {
 
 
 })
-
-document.querySelector('#registrationForm').addEventListener('submit', handleSubmit);
-
-function handleSubmit(event) {
-    event.preventDefault()
-    
-    const inputElements = document.querySelectorAll('#registrationForm input');
-
-    // Array to store empty input elements
-    const emptyInputs = [];
-
-    // Iterate through each input element
-    inputElements.forEach(input => {
-        // Check if the input value is empty or contains only whitespace
-        if (input.value.trim() === '') {
-            emptyInputs.push(input);
-        }
-    });
-
-    // Now `emptyInputs` array contains all input elements that are not filled
-    console.log(emptyInputs);
-}
-
-
-

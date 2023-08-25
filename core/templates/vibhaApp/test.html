@@ -1,113 +1,97 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Registration Form with Bootstrap Pagination</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Add Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
-
 <body>
-  <div class="container mt-5">
-    <h2>Registration Form</h2>
-    <div id="registrationForm">
-      <!-- Section 1 -->
-      <div class="page section1">
-        <h3>Step 1: Personal Information</h3>
-        <form>
-          <!-- Add your personal information fields here -->
-          <div class="form-group">
-            <label for="firstName">First Name:</label>
-            <input type="text" class="form-control" id="firstName" name="firstName">
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name:</label>
-            <input type="text" class="form-control" id="lastName" name="lastName">
-          </div>
-          <!-- Add other personal information fields here -->
-          <button type="button" class="btn btn-primary nextBtn">Next</button>
-        </form>
+  <div class="form1">
+    <form action="">
+
+      <div class="form-group mt-3">
+        <label for="name">Enter Your Full Name<span class="text-danger"> *</span></label><br>
+        <span class="d-flex mt-2" style="column-gap: 10px;">
+          <select class="form-control" name="selectStatus" id="status" style="width: 15%;">
+            <option value="" disabled selected>- Select -</option>
+            <option value="Mr.">Mr.</option>
+            <option value="Mr.">Mrs.</option>
+            <option value="Mr.">Miss.</option>
+            <option value="Mr.">Dr.</option>
+            <option value="Mr.">Shri.</option>
+            <option value="Mr.">Prof.</option>
+          </select>
+          <input type="text" name="name" id="name" class="form-control" required placeholder="Enter Name Here" style="width: 85%;">
+        </span>
+      </div>
+      <div class="form-group mt-3">
+        <label for="gender" class="mb-2">Select Your Gender<span class="text-danger"> *</span></label>
+        <select class="form-control" id="gender" name="gender" required>
+          <option value="" disabled selected>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
       </div>
 
-      <!-- Section 2 -->
-      <div class="page section2">
-        <h3>Step 2: Contact Information</h3>
-        <form>
-          <!-- Add your contact information fields here -->
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" name="email">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" class="form-control" id="phone" name="phone">
-          </div>
-          <!-- Add other contact information fields here -->
-          <button type="button" class="btn btn-primary prevBtn">Previous</button>
-          <button type="button" class="btn btn-primary nextBtn">Next</button>
-        </form>
+      <div class="form-group mt-3">
+        <label for="dob" class="mb-2">Date of Birth:<span class="text-danger"> *</span></label>
+        <input type="date" class="form-control" id="dob" name="dob" required>
       </div>
 
-      <!-- Section 3 -->
-      <div class="page section3">
-        <h3>Step 3: Account Information</h3>
-        <form>
-          <!-- Add your account information fields here -->
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" id="username" name="username">
-          </div>
-          <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" name="password">
-          </div>
-          <!-- Add other account information fields here -->
-          <button type="button" class="btn btn-primary prevBtn">Previous</button>
-          <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-      </div>
-    </div>
+      <div class="form-group mt-3">
+        <label for="areaOfInterest" class="mb-2">Select Area of Interest<span class="text-danger"> *</span></label>
+        <select id="areaOfInterest" class="form-control" name="areaOfInterest" required>
+          <option value="" disabled selected>Nothing Selected</option>
+          <option value="Traditional Knowledge and Applications">Traditional Knowledge and Applications
+          </option>
+          <option value="Environment">Environment</option>
+          <option value="Energy">Energy</option>
+          <option value="Health Sciences">Health Sciences</option>
+          <option value="Engineering Sciences">Engineering Sciences</option>
+          <option value="Literature">Literature</option>
+          <option value="Infrastructure, Technology and Communications">Infrastructure, Technology and
+            Communications</option>
+          <option value="Waste Management">Waste Management</option>
+          <option value="Woman Empowerment">Woman Empowerment</option>
+          <option value="School Student Activities">School Student Activities</option>
+          <option value="Agriculture and Veterinary Science">Agriculture and Veterinary Science</option>
+          <option value="Indic Science">Indic Science</option>
+          <option value="Other">Other</option>
 
-    <!-- Bootstrap Pagination -->
-    <ul class="pagination">
-      <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item active section1-page"><a class="page-link" href=".section1">1</a></li>
-      <li class="page-item section2-page"><a class="page-link" href=".section2">2</a></li>
-      <li class="page-item section3-page"><a class="page-link" href=".section3">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
+        </select>
+      </div>
+     
+      <div class="form-group mt-3">
+        <label for="instituteName mb-2">Enter Name of Affiliated Institute<span class="text-danger"> *</span></label>
+        <input type="text" id="instituteName" name="instituteName" class="form-control" placeholder="Example, BBAU UNIVERSITY" required>
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="designation mb-2">Enter Your Designation<span class="text-danger"> *</span></label>
+        <input type="text" name="designation" class="form-control" placeholder="Enter Designation" required>
+      </div>
+      <button type="submit">submit</button>
+
+    </form>
   </div>
 
-  <!-- Add Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
   <script>
-    // JavaScript to handle the pagination navigation
-    const pages = document.querySelectorAll('.page');
-    const paginationLinks = document.querySelectorAll('.pagination li');
+    var form1 = document.querySelector('.form1')
+    form1.querySelector('form').addEventListener('submit',run)
 
-    function showPage(sectionToShow) {
-      pages.forEach(page => page.classList.remove('active'));
-      paginationLinks.forEach(link => link.classList.remove('active'));
-
-      document.querySelector(sectionToShow).classList.add('active');
-      document.querySelector(`.${sectionToShow}-page`).classList.add('active');
+    function run(event) {
+      event.preventDefault();
+      var allInputName = form1.querySelectorAll('[name]')
+      for (let index = 0; index < allInputName.length; index++) {
+        let name = allInputName[index].name;
+        let val = allInputName[index].value;
+        console.log(name,"  ==  ",val)
+      }
+      alert('are you sure')
     }
-
-    paginationLinks.forEach(link => {
-      link.addEventListener('click', function (event) {
-        event.preventDefault();
-        if (!this.classList.contains('disabled')) {
-          const targetSection = this.querySelector('a').getAttribute('href');
-          showPage(targetSection);
-        }
-      });
-    });
-
-    // Show the first section by default
-    showPage('.section1');
   </script>
 </body>
-
 </html>

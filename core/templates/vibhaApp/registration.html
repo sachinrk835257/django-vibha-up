@@ -27,197 +27,391 @@
   </div>
   <div class="register">
     <div id="registrationForm">
-      <form action="##" method="post">
-        <!-- Section 1 -->
-        <div class="page section1">
-          <h3>Step 1: Select Membership Category</h3>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
 
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-          <label class="form-check-label" for="flexRadioDefault2">
-            Individual (INDIA) - ₹1,000.00*
-          </label>
-          <div class="mt-3">
-            <button type="button" class="btn btn-success nextBtn">Next</button>
-          </div>
-        </div>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+          {% endfor %}
 
-        <!-- Section 2 -->
-        <div class="page section2">
-          <h3>Step 2: Personal Details </h3>
-          <!-- Add your contact information fields here -->
-          <div class="form-group mt-3">
-            <label for="name">Enter Your Full Name</label><br>
-            <span class="d-flex mt-2" style="column-gap: 10px;">
-              <select name="" id="">
-                <option value="" disabled selected>Select -</option>
-                <option value="Mr.">Mr.</option>
-                <option value="Mr.">Mr.</option>
-                <option value="Mr.">Mr.</option>
-                <option value="Mr.">Mr.</option>
-                <option value="Mr.">Mr.</option>
-                <option value="Mr.">Prof.</option>
-              </select>
-              <input type="text" id="name" class="form-control" required placeholder="Enter Name Here">
-            </span>
-          </div>
-          <div class="form-grou mt-3">
-            <label for="gender" class="mb-2">Select Your Gender</label>
-            <select class="form-control" id="gender" name="gender" required>
-              <option value="" disabled selected>Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+          {% endif %}
+          http://127.0.0.1:8000/registration/
+          <form action="#" method="post">{% csrf_token %}
+            <!-- Section 1 -->
+            <div class="page section1">
+              <h3>Step 1: Select Membership Category</h3>
 
-          <div class="form-group mt-3">
-            <label for="dob" class="mb-2">Date of Birth:</label>
-            <input type="date" class="form-control" id="dob" name="dob" required>
-          </div>
+              <input class="form-check-input" type="radio" name="Membership" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                Individual (INDIA) - <strong>₹1,000.00*</strong>
+                <span class="text-danger"> *</span></label>
+              <div class="mt-3">
+                <button type="button" class="btn btn-success nextBtn">Next</button>
+              </div>
+            </div>
 
-          <div class="form-group mt-3">
-            <label for="areaOfInterest" class="mb-2">Select Area of Interest</label>
-            <select id="areaOfInterest" class="form-control" name="areaOfInterest" required>
-              <option value="" disabled selected>Nothing Selected</option>
-              <option value="Traditional Knowledge and Applications">Traditional Knowledge and Applications>
-              </option>
-              <option value="Environment">Environment></option>
-              <option value="Energy">Energy></option>
-              <option value="Health Sciences">Health Sciences></option>
-              <option value="Engineering Sciences">Engineering Sciences></option>
-              <option value="Literature">Literature></option>
-              <option value="Infrastructure, Technology and Communications">Infrastructure, Technology and
-                Communications></option>
-              <option value="Waste Management">Waste Management></option>
-              <option value="Woman Empowerment">Woman Empowerment></option>
-              <option value="School Student Activities">School Student Activities></option>
-              <option value="Agriculture and Veterinary Science">Agriculture and Veterinary Science></option>
-              <option value="Indic Science">Indic Science></option>
-              <option value="Others">Others></option>
+            <!-- Section 2 -->
+            <div class="page section2" id="form2">
+              <h3>Step 2: Personal Details </h3>
+              <!-- Add your contact information fields here -->
+              <div class="form-group mt-3">
+                <label for="name">Enter Your Full Name<span class="text-danger"> *</span></label><br>
+                <span class="d-flex mt-2" style="column-gap: 10px;">
+                  <select class="form-control" name="Select-Status" id="status" style="width: 15%;">
+                    <option value="" disabled selected>- Select -</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mr.">Mrs.</option>
+                    <option value="Mr.">Miss.</option>
+                    <option value="Mr.">Dr.</option>
+                    <option value="Mr.">Shri.</option>
+                    <option value="Mr.">Prof.</option>
+                  </select>
+                  <input type="text" name="name" id="name" class="form-control" required placeholder="Enter Name Here"
+                    style="width: 85%;">
+                </span>
+              </div>
+              <div class="form-group mt-3">
+                <label for="gender" class="mb-2">Select Your Gender<span class="text-danger"> *</span></label>
+                <select class="form-control" id="gender" name="Gender" required>
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
 
-            </select>
-          </div>
+              <div class="form-group mt-3">
+                <label for="dob" class="mb-2">Date of Birth:<span class="text-danger"> *</span></label>
+                <input type="date" class="form-control" id="dob" name="DOB" required>
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="otherInterest mb-2">Enter Your Designation</label>
-            <input type="text" id="otherInterest" class="form-control" placeholder="Example, Arts and Crafts" required>
-          </div>
+              <div class="form-group mt-3">
+                <label for="areaOfInterest" class="mb-2">Select Area of Interest<span class="text-danger">
+                    *</span></label>
+                <select id="areaOfInterest" class="form-control" name="Area-Of-Interest" required>
+                  <option value="" disabled selected>- Select-</option>
+                  <option value="Traditional Knowledge and Applications">Traditional Knowledge and Applications
+                  </option>
+                  <option value="Environment">Environment</option>
+                  <option value="Energy">Energy</option>
+                  <option value="Health Sciences">Health Sciences</option>
+                  <option value="Engineering Sciences">Engineering Sciences</option>
+                  <option value="Literature">Literature</option>
+                  <option value="Infrastructure, Technology and Communications">Infrastructure, Technology and
+                    Communications</option>
+                  <option value="Waste Management">Waste Management</option>
+                  <option value="Woman Empowerment">Woman Empowerment</option>
+                  <option value="School Student Activities">School Student Activities</option>
+                  <option value="Agriculture and Veterinary Science">Agriculture and Veterinary Science</option>
+                  <option value="Indic Science">Indic Science</option>
+                  <option value="Other">Other</option>
 
-          <div class="form-group mt-3">
-            <label for="instituteName mb-2">Enter Name of Affiliated Institute</label>
-            <input type="text" id="instituteName" class="form-control" placeholder="Example, BBAU UNIVERSITY" required>
-          </div>
+                </select>
+              </div>
+              <div class="form-group mt-3" id="interest-others" style="display: none;">
+                <label for="otherInput">Other: <span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" name="Other-Interest" id="otherInput"
+                  placeholder="Example, Arts and Crafts">
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="designation mb-2">Enter Your Designation</label>
-            <input type="text" id="designation" class="form-control" placeholder="Enter Designation" required>
-          </div>
+              <div class="form-group mt-3">
+                <label for="instituteName mb-2">Enter Name of Affiliated Institute<span class="text-danger">
+                    *</span></label>
+                <input type="text" id="instituteName" name="Institute-Name" class="form-control"
+                  placeholder="Example, BBAU UNIVERSITY" required>
+              </div>
 
-          <div class="form-buttons mt-3">
-            <button type="button" class="btn btn-primary prevBtn">Previous</button>
-            <button type="button" class="btn btn-primary nextBtn">Next</button>
-          </div>
+              <div class="form-group mt-3">
+                <label for="designation mb-2">Enter Your Designation<span class="text-danger"> *</span></label>
+                <input type="text" name="Designation" class="form-control" placeholder="Enter Designation" required>
+              </div>
 
-        </div>
+              <div class="form-buttons mt-3">
+                <button type="button" class="btn btn-primary prevBtn">Previous</button>
+                <button type="button" class="btn btn-primary nextBtn forward">Next</button>
+              </div>
 
-        <!-- Section 3 -->
-        <div class="page section3">
-          <h3>Step 3: Contact Details</h3>
+            </div>
 
-          <div class="form-group mt-3">
-            <label for="pri-email mb-2">Enter Your Primary Email Address</label>
-            <input type="text" id="pri-email" class="form-control" placeholder="Enter Primary Email" required>
-          </div>
+            <!-- Section 3 -->
+            <div class="page section3" id="form3">
+              <h3>Step 3: Contact Details</h3>
 
-          <div class="form-group mt-3">
-            <label for="pri-mobile mb-2">Enter Your Primary Mobile Number</label>
-            <input type="text" id="pri-mobile" class="form-control" placeholder="Enter Primary Mobile NUmber" required>
-          </div>
+              <div class="form-group mt-3">
+                <label for="pri-email mb-2">Enter Your Primary Email Address<span class="text-danger"> *</span></label>
+                <input type="text" name="Primary-Email" class="form-control" placeholder="Enter Primary Email" required>
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="pri-whatsapp mb-2">Enter Your Primary Whatsapp Number</label>
-            <input type="text" id="pri-whatsapp" class="form-control" placeholder="Enter Primary Whatsapp NUmber"
-              required>
-          </div>
+              <div class="form-group mt-3">
+                <label for="pri-mobile mb-2">Enter Your Primary Mobile Number<span class="text-danger"> *</span></label>
+                <input type="text" name="Primary-Mobile" class="form-control" placeholder="Enter Primary Mobile NUmber"
+                  required>
+              </div>
 
-          <div class="form-group mt-3">
+              <div class="form-group mt-3">
+                <label for="pri-whatsapp mb-2">Enter Your Primary Whatsapp Number<span class="text-danger">
+                    *</span></label>
+                <input type="text" name="Primary-Whatsapp" class="form-control"
+                  placeholder="Enter Primary Whatsapp NUmber" required>
+              </div>
 
-            <label for="password mb-2">Password:</label>
-            <input class="form-control" type="password" id="password" name="password" placeholder="enter Password"
-              required>
-            <p id="passwordRules" class="mt-2" style="color: red;"></p>
+              <div class="form-group mt-3">
 
-          </div>
+                <label for="password mb-2">Password:<span class="text-danger"> *</span></label>
+                <input class="form-control" type="password" id="password" name="Pass1" placeholder="enter Password"
+                  required>
+                <p id="passwordRules" class="mt-2" style="color: red;"></p>
 
-          <div class="form-group mt-3">
-            <label for="cnrfpassword mb-2">Confirm Password:</label>
-            <input type="password" class="form-control" id="cnrfpassword" name="cnrfpassword"
-              placeholder="enter Password again" required>
-            <p id="cnfrmPasswordInputTextContent" class="mt-2" style="color: red;"></p>
+              </div>
 
-          </div>
+              <div class="form-group mt-3">
+                <label for="cnrfpassword mb-2">Confirm Password:<span class="text-danger"> *</span></label>
+                <input type="password" class="form-control" id="cnrfpassword" name="Pass2"
+                  placeholder="enter Password again" required>
+                <p id="cnfrmPasswordInputTextContent" class="mt-2" style="color: red;"></p>
 
-          <div class="form-buttons mt-3">
-            <button type="button" class="btn btn-primary prevBtn">Previous</button>
-            <button type="button" class="btn btn-primary nextBtn">Next</button>
-          </div>
+              </div>
+
+              <div class="form-buttons mt-3">
+                <button type="button" class="btn btn-primary prevBtn">Previous</button>
+                <button type="button" class="btn btn-primary nextBtn forward">Next</button>
+              </div>
 
 
-        </div>
+            </div>
 
-        <!-- Section 4 -->
-        <div class="page section4">
-          <h3>Step 4: Enter Your Regional Details</h3>
+            <!-- Section 4 -->
+            <div class="page section4" id="form4">
+              <h3>Step 4: Enter Your Regional Details</h3>
 
-          <div class="form-group mt-3">
+              <div class="form-group mt-3">
 
-            <label for="countrySelect" class="mb-2">Select Country:</label><br>
-            <select class="form-control" id="countrySelect" name="countrySelect" required>
-              <option value="" disabled selected>-- Select Country --</option>
-              <option value="India">India</option>
+                <label for="countrySelect" class="mb-2">Select Country:<span class="text-danger"> *</span></label><br>
+                <select class="form-control" id="countrySelect" name="countrySelect" required>
+                  <option value="" disabled selected>-- Select Country --</option>
+                  <option value="India">India</option>
 
-            </select>
-          </div>
+                </select>
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="stateSelect" class="mb-2">Select State:</label><br>
-            <select class="form-control" id="stateSelect" onchange="populateCities()">
-              <option value="">-- Select State --</option>
-              <option value="andhra_pradesh">Andhra Pradesh</option>
-              <option value="maharashtra">Maharashtra</option>
-              <option value="tamil_nadu">Tamil Nadu</option>
-              <!-- Add more states here -->
-            </select>
+              <div class="form-group mt-3">
+                <label for="stateSelect" class="mb-2">Select State:<span class="text-danger"> *</span></label><br>
+                <select class="form-control" id="stateSelect" name="selectState" onchange="populateCities()">
+                  <option value="">-- Select State --</option>
+                  <option value="andhra_pradesh">Andhra Pradesh</option>
+                  <option value="maharashtra">Maharashtra</option>
+                  <option value="tamil_nadu">Tamil Nadu</option>
+                  <!-- Add more states here -->
+                </select>
 
-          </div>
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="citySelect" class="mb-2">Select City:</label><br>
-            <select class="form-control" id="citySelect">
-              <option value="">-- Select City --</option>
-            </select>
-          </div>
+              <div class="form-group mt-3">
+                <label for="citySelect" class="mb-2">Select City:<span class="text-danger"> *</span></label><br>
+                <select class="form-control" name="selectCity" id="citySelect">
+                  <option value="">-- Select City --</option>
+                </select>
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="pinCode mb-2">Enter Pin/Zip Code</label>
-            <input type="text" id="pinCode" class="form-control" name="pinCode" placeholder="Example, 411011" required>
-          </div>
+              <div class="form-group mt-3">
+                <label for="pinCode mb-2">Enter Pin/Zip Code<span class="text-danger"> *</span></label>
+                <input type="text" id="pinCode" class="form-control" name="pinCode" placeholder="Example, 411011"
+                  required>
+              </div>
 
-          <div class="form-group mt-3">
-            <label for="postAddress mb-2">Enter Postal Address</label><br>
-            <!-- <input type="text" id="postAddress" class="form-control" placeholder="Enter postal address" required> -->
-            <textarea class="form-control mt-2" name="postAddress" id="postAddress" cols="50" rows="5"></textarea>
-          </div>
+              <div class="form-group mt-3">
+                <label for="postAddress mb-2">Enter Postal Address<span class="text-danger"> *</span></label><br>
+                <!-- <input type="text" id="postAddress" class="form-control" placeholder="Enter postal address" required> -->
+                <textarea class="form-control mt-2" name="postAddress" id="postAddress" cols="50" rows="5"></textarea>
+              </div>
 
-          <div class="form-buttons mt-3">
-            <button type="button" class="btn btn-primary prevBtn">Previous</button>
-            <button type="submit" class="btn btn-primary">Submitt</button>
-          </div>
-        </div>
+              <div class="form-buttons mt-3">
+                <button type="button" class="btn btn-primary prevBtn">Previous</button>
+                <button type="button" class="btn btn-primary forward">Submitt</button>
+              </div>
+            </div>
 
-      </form>
+            <div class="previewForm" id="" style="display: block;">
+              <h3>Step 4: Enter Your Regional Details</h3>
+              <div class="container">
+                <table class="table table-hover table-bordered">
+                  <tbody>
+                    <!-- <tr>
+                    <th scope="row">Membership</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Country</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">State</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">District</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Prant</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pincode</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Postal Address</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Gender</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date-of-Birth</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Area of Interest</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Affliated Institute</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="Designation">Designation</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="Email">Email</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="Primary-Mobile">Primary Mobile</th>
+                    <td id="">Mark</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="Whatsapp-Mobile">Whatsapp Mobile</th>
+                    <td id="">Mark</td>
+                  </tr> -->
+                  </tbody>
+                </table>
+
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" name="acceptTerms" type="checkbox" id="gridCheck" checked>
+                    <label class="form-check-label" for="gridCheck">
+                      I accept all <a href="">terms and conditions</a>related to VIBHA registration.
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </form>
     </div>
   </div>
 </main>
 
 {% endblock main %}
+
+{% block js %}
+<script>
+
+  // document.querySelector('#registrationForm').addEventListener('click', function (e) {
+  //   let found = (e.target.classList)
+    
+  //   if (found[found.length - 1] == "forward") {
+  //     let targeted = e.target.parentElement.parentElement
+  //     console.log(targeted.id)
+  //     const inputs = document.querySelectorAll(targeted.id);
+  //     let isEmpty = false;
+
+  //     inputs.forEach(input => {
+  //       if (input.value.trim() === '') {
+  //         isEmpty = true;
+  //         input.style.borderColor = 'red'; // Optional: Highlight empty fields
+  //       } else {
+  //         input.style.borderColor = ''; // Optional: Reset border color
+  //       }
+  //     });
+
+  //     if (isEmpty) {
+  //       alert('Please fill in all the required fields.');
+  //     }
+  //     else{
+
+  //     }
+  //   }
+  // })
+  // const checkInputs = (e) {
+  //   console.log)
+  // // const inputs = document.querySelectorAll('#' + id + ' input');
+  // let isEmpty = false;
+
+  // inputs.forEach(input => {
+  //   if (input.value.trim() === '') {
+  //     isEmpty = true;
+  //     input.style.borderColor = 'red'; // Optional: Highlight empty fields
+  //   } else {
+  //     input.style.borderColor = ''; // Optional: Reset border color
+  //   }
+  // });
+
+  // if (isEmpty) {
+  //   alert('Please fill in all the required fields.');
+  // }
+  // }
+
+
+  var previewInputs = document.querySelector('.previewForm table tbody')
+  document.querySelector('#registrationForm form').addEventListener('submit', getValue)
+  function getValue() {
+    var allInputs = document.querySelectorAll('#registrationForm input[name]')
+    for (let i = 0; i < allInputs.length; i++) {
+      let name = (allInputs[i].name);
+      let val = allInputs[i].value;
+      if (name == "Pass1" || name == "Pass2") {
+        continue;
+      }
+      previewInputs.innerHTML = '<tr><th scope="row">' + name + '</th><td>' + val + '</td></tr>'
+
+
+    }
+    alert("All information is fill coorectly?")
+  }
+
+
+
+  const selectField = document.getElementById('areaOfInterest');
+  const otherInputContainer = document.getElementById('interest-others');
+  const otherInput = document.getElementById('otherInput');
+
+  selectField.addEventListener('change', function () {
+    if (selectField.value === 'Other') {
+      otherInputContainer.style.display = 'block';
+    } else {
+      otherInputContainer.style.display = 'none';
+      otherInput.value = ''; // Clear the input if not 'other'
+    }
+  });
+</script>
+{% endblock js %}
