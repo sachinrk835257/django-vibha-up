@@ -76,14 +76,6 @@ body {
 }
 
 
-
-/* .jumbo-link-area::before{
-    content: "Read this -";
-    background-color: yellow;
-    color: red;
-    font-weight: bold;
-} */
-
 /* navbar styling */
 @media all and (min-width: 992px) {
     .navbar .nav-item .dropdown-menu {
@@ -110,29 +102,17 @@ body {
 
 .navbar .logo {
     border-radius: 50%;
-    width: 72px;
+    width: 65px;
 }
 
 .navbar .navbar-brand {
-    margin-right: 115px;
+    margin-right: 100px;
 }
 
 .navbar-light .navbar-nav .nav-link {
     color: black;
 }
 
-/* .navbar-light .navbar-nav .nav-link::before {
-    content: "";
-    position: relative;
-    bottom: 10px;
-    left: 1%;
-    width: 100%;
-    padding: 5px 5px;
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-    
-} */
 .navbar-light .navbar-nav .nav-link:hover:before {
     content: "";
     background-color: #084298;
@@ -150,19 +130,23 @@ body {
     }
 
     100% {
-        width: 60%;
+        width: 100%;
     }
 }
 
 .navbar .navbar-brand span {
     color: #084298;
-    font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: -1px;
     margin-left: 4px;
 }
 
 /* carousal css */
+.carousel-inner .cr-img {
+    width: 100%;
+    height: 40vw;
+}
+
 .carousel-control-prev,
 .carousel-control-next {
     top: 50%;
@@ -183,10 +167,6 @@ body {
 
 }
 
-.carousel-inner .cr-img {
-    width: 100%;
-    height: 40vw;
-}
 .main-content .about-vibha, .main-content .aim {
     background-color: rgb(7 46 74);
     color: white;
@@ -329,7 +309,6 @@ body {
 }
 footer {
     background-color: #282b2e;
-    
 }
 .footer-form {
 
@@ -411,10 +390,10 @@ footer .row {
     font-size: 1.5rem;
 }
 .main-content .our-team .card{
-    width: 23%;
+    width: 24%;
 }
 .main-content .our-team .card img{
-    width: 75%;
+    width: 80%;
     height: 180px;
     margin: 2px 0px;
     border-radius: 0;
@@ -487,9 +466,11 @@ footer .row {
 /* membership.html */
 .main-content .membership-content{
     padding-left: 3rem;
+    padding-right: 1rem;
+    font-size: 1.1rem;
 }
 .main-content .membership-content .card{
-    width: 33%;
+    width: 45%;
     margin-right: 1%;
 
 }
@@ -511,7 +492,7 @@ footer .row {
   }
 
   .main-content .membership-content .qr-section img{
-    width: 100%;
+    width: 80%;
   }
 
   /* members.html */
@@ -527,3 +508,51 @@ footer .row {
     font-size: 1.1rem;
     transition: all 0.2s linear;
   }
+
+  /* register.html */
+  .progress{
+    width: 90%;
+    margin: 0px auto;
+    background-color: white;
+height: 32px;
+  }
+.progress .numbering{
+width: 30px;
+    height: 30px;
+    background-color: rgb(152, 144, 144);
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    /* margin: auto; */
+    line-height: 30px;
+    transition: background-color 0.5s ease-in-out;
+}
+.progress .progress-bar{
+    width: 16.66%;
+    height: 2px;
+    margin: 0px 5px;
+    background-color:#084298;
+    transition: background-color 0.3s ease-in-out;
+}
+.progress .next-progress-bar{
+    background-color: rgb(233, 224, 38);
+}
+.progress .next-numbering{
+    background-color: #09864b;
+    
+}
+.register .section1{
+
+}
+.register .section2{
+    display: none;
+}
+.register .section3{
+    display: none;
+}
+.register .section4{
+    display: none;
+}
+.register .section5{
+    
+}

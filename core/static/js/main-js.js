@@ -1,5 +1,3 @@
-console.log("main-js running")
-
 document.addEventListener("DOMContentLoaded", function () {
     // make it as accordion for smaller screens
     if (window.innerWidth > 992) {
@@ -77,17 +75,167 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     window.addEventListener("scroll", handleAnimation);
     // Event listener for scroll
+
+
+    var area = document.querySelector('.register');
+    var numbering = document.querySelectorAll('.progress .numbering');
+    var progressBar = this.documentElement.querySelectorAll('.progress .progress-bar')
+    var count = 1
+
+    area.addEventListener('click', function (e) {
+        if (e.target.classList.contains('nextBtn')) {
+
+            numbering[count].classList.add('next-numbering');
+            progressBar[count].classList.add('next-progress-bar')
+
+            e.target.parentElement.parentElement.style.display = 'none';
+            e.target.parentElement.parentElement.nextElementSibling.style.display = 'block';
+            count += 1
+
+
+        } if (e.target.classList.contains('prevBtn')) {
+            count -= 1
+            progressBar[count].classList.remove('next-progress-bar')
+            numbering[count].classList.remove('next-numbering');
+            e.target.parentElement.parentElement.style.display = 'none';
+            e.target.parentElement.parentElement.previousElementSibling.style.display = 'block';
+        }
+    })
+
 });
 
 
-// let find = document.querySelector('.main-content .features');
-// find.innerHTML='<h2>Entities & Initiatives</h2><div class="mb-3 d-flex justify-content-center trigger-element"><div class="card align-items-center"><img src="images/membership-img.jpg" class="" alt="..."><div class="card-body"><h5 class="card-title text-center">Online Membership</h5><button> CLICK </button></div></div> <div class="card align-items-center">    <img src="images/SHAKTI.png" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">Shakti - A national Movement for Women</h5>      <a href="https://vijnanabharati.org/Shakti.html" target="_blank"><button> CLICK</button></a></div></div>  <div class="card align-items-center">    <img src="images/mandala-entity.png" class="" alt="...">   <div class="card-body">      <h5 class="card-title text-center">Mandala</h5>      <button> CLICK </button>    </div>  </div>  <div class="card align-items-center">    <img src="images/TECH4SEVA.png" alt="...">    <div class="card-body">   <h5 class="card-title ext-center">TECH4SEVA</h5>      <button> CLICK</button>    </div> </div></div><div class="mb-2 d-flex justify-content-center trigger-element">  <div class="card align-items-center">    <img src="images/features-im6.png" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">IISF</h5>      <button> CLICK </button>    </div>  </div>  <div class="card align-items-center">    <img src="images/features-img5.jpg" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">Vishwa Ved Vigyan</h5>      <button> CLICK </button>    </div>  </div>  <div class="card align-items-center">    <img src="images/features-im7.png" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">NASYA</h5>      <button> CLICK </button>    </div>  </div></div>'
+const citiesByState = {
+    andhra_pradesh: ["Hyderabad", "Visakhapatnam", "Vijayawada", "Guntur"],
+    maharashtra: ["Mumbai", "Pune", "Nagpur", "Nashik"],
+    tamil_nadu: ["Chennai", "Coimbatore", "Madurai", "Salem"],
+    // Add more states and their cities here
+};
 
-// $(".outer-container .main-content .features").append('<h2>Entities & Initiatives</h2><div class="mb-3 d-flex justify-content-center trigger-element"><div class="card align-items-center"><img src="images/membership-img.jpg" class="" alt="..."><div class="card-body"><h5 class="card-title text-center">Online Membership</h5><button> CLICK </button></div></div> <div class="card align-items-center">    <img src="images/SHAKTI.png" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">Shakti - A national Movement for Women</h5>      <a href="https://vijnanabharati.org/Shakti.html" target="_blank"><button> CLICK</button></a></div></div>  <div class="card align-items-center">    <img src="images/mandala-entity.png" class="" alt="...">   <div class="card-body">      <h5 class="card-title text-center">Mandala</h5>      <button> CLICK </button>    </div>  </div>  <div class="card align-items-center">    <img src="images/TECH4SEVA.png" alt="...">    <div class="card-body">   <h5 class="card-title ext-center">TECH4SEVA</h5>      <button> CLICK</button>    </div> </div></div><div class="mb-2 d-flex justify-content-center trigger-element">  <div class="card align-items-center">    <img src="images/features-im6.png" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">IISF</h5>      <button> CLICK </button>    </div>  </div>  <div class="card align-items-center">    <img src="images/features-img5.jpg" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">Vishwa Ved Vigyan</h5>      <button> CLICK </button>    </div>  </div>  <div class="card align-items-center">    <img src="images/features-im7.png" class="" alt="...">    <div class="card-body">      <h5 class="card-title text-center">NASYA</h5>      <button> CLICK </button>    </div>  </div></div>')
+
+function handlePrevBtn(prvSection) {
+    console.log("in function ...", prvSection);
+    prvSection.style.display = 'block'
+    console.log("out function ...", prvSection);
+
+
+}
+function populateCities() {
+    const stateSelect = document.getElementById("stateSelect");
+    const citySelect = document.getElementById("citySelect");
+    const selectedState = stateSelect.value;
+    const cities = citiesByState[selectedState] || [];
+
+    // Clear existing city options
+    citySelect.innerHTML = '<option value="">-- Select City --</option>';
+
+    // Add city options for the selected state
+    cities.forEach((city) => {
+        const option = document.createElement("option");
+        option.value = city;
+        option.textContent = city;
+        citySelect.appendChild(option);
+    });
+}
+
+// Trigger initial population of cities when the page loads
+populateCities();
+
+
+var passwordInput = document.querySelector('form #password');
+var cnfrmPasswordInput = document.querySelector('form #cnrfpassword');
+var passwordRulesElement = document.querySelector('form #passwordRules');
+var cnfrmPasswordInputTextContent = document.querySelector('form #cnfrmPasswordInputTextContent')
+// console.log("####",passwordInput,passwordRulesElement)
+
+passwordInput.addEventListener('input', checkPasswordRules);
+
+function checkPasswordRules() {
+    const password = passwordInput.value;
+    const rules = [];
+
+    // Check minimum length
+    if (password.length < 8) {
+        rules.push('Minimum length: 8 characters');
+    }
+
+    // Check complexity
+    if (!/[A-Z]/.test(password)) {
+        rules.push('Include at least one uppercase letter');
+    }
+    if (!/[a-z]/.test(password)) {
+        rules.push('Include at least one lowercase letter');
+    }
+    if (!/\d/.test(password)) {
+        rules.push('Include at least one number');
+    }
+    if (!/[\W_]/.test(password)) {
+        rules.push('Include at least one special character');
+    }
+
+    // Check common passwords
+    const commonPasswords = ['password', '123456', 'qwerty', 'abc123']; // Add more if needed
+    if (commonPasswords.includes(password.toLowerCase())) {
+        rules.push('Choose a stronger password');
+    }
+
+    // Check username in password
+    const username = 'exampleUser'; // Replace with the actual username or fetch from the server
+    if (password.toLowerCase().includes(username.toLowerCase())) {
+        rules.push('Avoid using your username in the password');
+    }
+
+    // Check for dictionary words or easily guessable information
+    const dictionaryWords = ['example', 'password', 'user']; // Add more if needed
+    if (dictionaryWords.some(word => password.toLowerCase().includes(word))) {
+        rules.push('Avoid using dictionary words or easily guessable information');
+    }
+
+    // Display password rules
+    if (rules.length === 0) {
+        passwordRulesElement.textContent = 'Password is strong!';
+    } else {
+        passwordRulesElement.textContent = rules.join('\n');
+    }
+}
+
+cnfrmPasswordInput.addEventListener('keyup', () => {
+
+    if ((passwordInput.value) != (cnfrmPasswordInput.value)) {
+
+        cnfrmPasswordInputTextContent.textContent = "password does not match";
+
+    }
+    else {
+
+        cnfrmPasswordInputTextContent.textContent = "";
+    }
 
 
 
+})
+
+document.querySelector('#registrationForm').addEventListener('submit', handleSubmit);
+
+function handleSubmit(event) {
+    event.preventDefault()
+    
+    const inputElements = document.querySelectorAll('#registrationForm input');
+
+    // Array to store empty input elements
+    const emptyInputs = [];
+
+    // Iterate through each input element
+    inputElements.forEach(input => {
+        // Check if the input value is empty or contains only whitespace
+        if (input.value.trim() === '') {
+            emptyInputs.push(input);
+        }
+    });
+
+    // Now `emptyInputs` array contains all input elements that are not filled
+    console.log(emptyInputs);
+}
 
 
-console.log("in main")
-console.log(document.querySelectorAll(".trigger-element"))
+
