@@ -21,10 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (el_link != null) {
                     let nextEl = el_link.nextElementSibling;
                     el_link.classList.remove('show');
-                    nextEl.classList.remove('show');
-                }
-
-
+                    nextEl.classList.remove('show');               }
             })
         });
 
