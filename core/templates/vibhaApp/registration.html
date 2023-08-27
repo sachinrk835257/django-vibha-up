@@ -51,10 +51,10 @@
             <div class="page section1" id="form1">
               <h3>Step 1: Select Membership Category</h3>
 
-              <input class="form-check-input" type="radio" name="Membership" id="flexRadioDefault2" value="1000"
+              <input class="form-check-input" type="radio" name="Membership" id="flexRadioDefault2" value="RS. 1000 FEE INDIVIDUAL"
                 checked>
               <label class="form-check-label" for="flexRadioDefault2">
-                Individual (INDIA) - <strong>₹1,000.00*</strong>
+                Individual (INDIA) - <strong>₹1,000.00</strong>
                 <span class="text-danger"> *</span></label>
               <div class="mt-3">
                 <button type="button" class="btn btn-success forward">Next</button>
@@ -77,7 +77,7 @@
                     <option value="Mr.">Shri.</option>
                     <option value="Mr.">Prof.</option>
                   </select>
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name Here"
+                  <input type="text" name="Name" id="name" class="form-control" placeholder="Enter Name Here"
                     style="width: 85%;" required>
                 </span>
               </div>
@@ -119,10 +119,12 @@
 
                 </select>
               </div>
-              <div class="form-group mt-3" id="interest-others" style="display: none;">
-                <label for="otherInput">Other: <span class="text-danger"> *</span></label>
-                <input type="text" class="form-control" name="Other-Interest" id="otherInput"
-                  placeholder="Example, Arts and Crafts">
+              <div id="otherInput">
+
+                <div class="form-group mt-3">
+                  <label for="otherInput">Other: <span class="text-danger"> *</span></label>
+                  <input type="text" class="form-control" name="Other-Interest" placeholder="Example, Arts and Crafts">
+                </div>
               </div>
 
               <div class="form-group mt-3">
@@ -238,12 +240,12 @@
 
               <div class="form-buttons mt-3">
                 <button type="button" class="btn btn-primary prevBtn">Previous</button>
-                <button type="button" class="btn btn-primary forward">Submitt</button>
+                <button type="button" class="btn btn-primary forward preview">View Preview</button>
               </div>
             </div>
 
-            <div class="previewForm" id="" style="display: none;">
-              <h3>Step 4: Enter Your Regional Details</h3>
+            <div class="previewForm" style="display: none;">
+              <h3>Step 5: Confirm your Profile Details:</h3>
               <div class="container">
                 <table class="table table-hover table-bordered">
                   <tbody>
@@ -337,257 +339,202 @@
 {% block js %}
 <script>
 
-  // document.querySelector('#registrationForm').addEventListener('click', function (e) {
-  //   let found = (e.target.classList)
-
-  //   if (found[found.length - 1] == "forward") {
-  //     let targeted = e.target.parentElement.parentElement
-  //     console.log(targeted.id)
-  //     const inputs = document.querySelectorAll(targeted.id);
-  //     let isEmpty = false;
-
-  //     inputs.forEach(input => {
-  //       if (input.value.trim() === '') {
-  //         isEmpty = true;
-  //         input.style.borderColor = 'red'; // Optional: Highlight empty fields
-  //       } else {
-  //         input.style.borderColor = ''; // Optional: Reset border color
-  //       }
-  //     });
-
-  //     if (isEmpty) {
-  //       alert('Please fill in all the required fields.');
-  //     }
-  //     else{
-
-  //     }
-  //   }
-  // })
-  // const checkInputs = (e) {
-  //   console.log)
-  // // const inputs = document.querySelectorAll('#' + id + ' input');
-  // let isEmpty = false;
-
-  // inputs.forEach(input => {
-  //   if (input.value.trim() === '') {
-  //     isEmpty = true;
-  //     input.style.borderColor = 'red'; // Optional: Highlight empty fields
-  //   } else {
-  //     input.style.borderColor = ''; // Optional: Reset border color
-  //   }
-  // });
-
-  // if (isEmpty) {
-  //   alert('Please fill in all the required fields.');
-  // }
-  // }
   var area = document.querySelector('.register');
   var numbering = document.querySelectorAll('.progress .numbering');
   var progressBar = document.querySelectorAll('.progress .progress-bar')
   var count = 1
-  console.log(area)
 
   area.addEventListener('click', function (e) {
     // console.log(e.target)
     if (e.target.classList.contains('forward')) {
       let targeted = e.target.parentElement.parentElement
-      // console.log("1")
-      // console.log(targeted.id)
       const inputs = document.querySelectorAll('#' + targeted.id + ' [name]');
       let isEmpty = false;
       // console.log(inputs)
       for (let j = 0; j < inputs.length; j++) {
         const input = inputs[j];
-
-        console.log("attribute ",input.getAttribute('name'))
-        var isOther = false
-        if (input.getAttribute('name') == "Area-Of-Interest") {
-
-          console.log("in areaOfInterest and value=",input.value)
-          if (input.value != "Other") {
-            isOther = true
-          }
-      }
-        if (! isOther) {
-          
-        }
         if (input.value.trim() === '') {
           isEmpty = true;
-          console.log(input.value,input.id)
           input.style.borderColor = 'red'; // Optional: Highlight empty fields
         } else {
           input.style.borderColor = ''; // Optional: Reset border color
         }
-      
 
-      if (isEmpty) {
-        alert('Please fill in all the required fields.');
+      }
+        if (isEmpty) {
+          alert('Please fill in all the required fields.');
+        }
+        else {
+
+          numbering[count].classList.add('next-numbering');
+          progressBar[count].classList.add('next-progress-bar')
+
+          e.target.parentElement.parentElement.style.display = 'none';
+          e.target.parentElement.parentElement.nextElementSibling.style.display = 'block';
+          count += 1
+        }
+
+
+
+      
+      if (e.target.classList.contains('prevBtn')) {
+        count -= 1
+        progressBar[count].classList.remove('next-progress-bar')
+        numbering[count].classList.remove('next-numbering');
+        e.target.parentElement.parentElement.style.display = 'none';
+        e.target.parentElement.parentElement.previousElementSibling.style.display = 'block';
+      }
+    }
+  })
+
+
+    var previewInputs = document.querySelector('.previewForm table tbody')
+    document.querySelector('#registrationForm form .preview').addEventListener('click', getValue)
+    function getValue() {
+      var allInputs = document.querySelectorAll('#registrationForm .page [name]')
+      var insertHtml = ''
+      for (let i = 0; i < allInputs.length; i++) {
+        let name = (allInputs[i].name);
+        let val = allInputs[i].value;
+        console.log("name of attribut == ",name,"value == ",val)
+        if (name == "Pass1" || name == "Pass2" || name == "csrfmiddlewaretoken") {
+          continue;
+        }
+        insertHtml += '<tr><th scope="row">' + name + '</th><td>' + val + '</td></tr>'
+        console.log("yes")
+        
+      }
+      alert("All information is fill coorectly?")
+      previewInputs.innerHTML = insertHtml
+    }
+
+
+
+    const selectField = document.getElementById('areaOfInterest');
+    // const otherInputContainer = document.getElementById('interest-others');
+    const otherInput = document.getElementById('otherInput');
+
+    selectField.addEventListener('change', function () {
+      if (selectField.value === 'Other') {
+        otherInput.style.display = 'block'
+        otherInput.innerHTML = '<div class="form-group mt-3"><label for="other2">Other: <span class="text-danger"> *</span></label><input type="text" class="form-control" id="other2" name="Other-Interest" placeholder="Example, Arts and Crafts"></div>'
+      } else {
+        otherInput.style.display = 'none';
+        otherInput.innerHTML = ''
+        otherInput.value = ''; // Clear the input if not 'other'
+      }
+    });
+
+
+    const citiesByState = {
+      andhra_pradesh: ["Hyderabad", "Visakhapatnam", "Vijayawada", "Guntur"],
+      maharashtra: ["Mumbai", "Pune", "Nagpur", "Nashik"],
+      tamil_nadu: ["Chennai", "Coimbatore", "Madurai", "Salem"],
+      // Add more states and their cities here
+    };
+
+
+    function handlePrevBtn(prvSection) {
+      console.log("in function ...", prvSection);
+      prvSection.style.display = 'block'
+      console.log("out function ...", prvSection);
+
+
+    }
+    function populateCities() {
+      const stateSelect = document.getElementById("stateSelect");
+      const citySelect = document.getElementById("citySelect");
+      const selectedState = stateSelect.value;
+      const cities = citiesByState[selectedState] || [];
+
+      // Clear existing city options
+      citySelect.innerHTML = '<option value="">-- Select City --</option>';
+
+      // Add city options for the selected state
+      cities.forEach((city) => {
+        const option = document.createElement("option");
+        option.value = city;
+        option.textContent = city;
+        citySelect.appendChild(option);
+      });
+    }
+
+    // Trigger initial population of cities when the page loads
+    populateCities();
+
+
+    var passwordInput = document.querySelector('form #password');
+    var cnfrmPasswordInput = document.querySelector('form #cnrfpassword');
+    var passwordRulesElement = document.querySelector('form #passwordRules');
+    var cnfrmPasswordInputTextContent = document.querySelector('form #cnfrmPasswordInputTextContent')
+    // console.log("####",passwordInput,passwordRulesElement)
+
+    passwordInput.addEventListener('input', checkPasswordRules);
+
+    function checkPasswordRules() {
+      const password = passwordInput.value;
+      const rules = [];
+
+      // Check minimum length
+      if (password.length < 8) {
+        rules.push('Minimum length: 8 characters');
+      }
+
+      // Check complexity
+      if (!/[A-Z]/.test(password)) {
+        rules.push('Include at least one uppercase letter');
+      }
+      if (!/[a-z]/.test(password)) {
+        rules.push('Include at least one lowercase letter');
+      }
+      if (!/\d/.test(password)) {
+        rules.push('Include at least one number');
+      }
+      if (!/[\W_]/.test(password)) {
+        rules.push('Include at least one special character');
+      }
+
+      // Check common passwords
+      const commonPasswords = ['password', '123456', 'qwerty', 'abc123']; // Add more if needed
+      if (commonPasswords.includes(password.toLowerCase())) {
+        rules.push('Choose a stronger password');
+      }
+
+      // Check username in password
+      const username = 'exampleUser'; // Replace with the actual username or fetch from the server
+      if (password.toLowerCase().includes(username.toLowerCase())) {
+        rules.push('Avoid using your username in the password');
+      }
+
+      // Check for dictionary words or easily guessable information
+      const dictionaryWords = ['example', 'password', 'user']; // Add more if needed
+      if (dictionaryWords.some(word => password.toLowerCase().includes(word))) {
+        rules.push('Avoid using dictionary words or easily guessable information');
+      }
+
+      // Display password rules
+      if (rules.length === 0) {
+        passwordRulesElement.textContent = 'Password is strong!';
+      } else {
+        passwordRulesElement.textContent = rules.join('\n');
+      }
+    }
+
+    cnfrmPasswordInput.addEventListener('keyup', () => {
+
+      if ((passwordInput.value) != (cnfrmPasswordInput.value)) {
+
+        cnfrmPasswordInputTextContent.textContent = "password does not match";
+
       }
       else {
 
-        numbering[count].classList.add('next-numbering');
-        progressBar[count].classList.add('next-progress-bar')
-
-        e.target.parentElement.parentElement.style.display = 'none';
-        e.target.parentElement.parentElement.nextElementSibling.style.display = 'block';
-        count += 1
+        cnfrmPasswordInputTextContent.textContent = "";
       }
 
 
 
-    }
-    if (e.target.classList.contains('prevBtn')) {
-      count -= 1
-      progressBar[count].classList.remove('next-progress-bar')
-      numbering[count].classList.remove('next-numbering');
-      e.target.parentElement.parentElement.style.display = 'none';
-      e.target.parentElement.parentElement.previousElementSibling.style.display = 'block';
-    }
-  })
-
-
-  var previewInputs = document.querySelector('.previewForm table tbody')
-  document.querySelector('#registrationForm form').addEventListener('submit', getValue)
-  function getValue() {
-    var allInputs = document.querySelectorAll('#registrationForm input[name]')
-    for (let i = 0; i < allInputs.length; i++) {
-      let name = (allInputs[i].name);
-      let val = allInputs[i].value;
-      if (name == "Pass1" || name == "Pass2") {
-        continue;
-      }
-      previewInputs.innerHTML = '<tr><th scope="row">' + name + '</th><td>' + val + '</td></tr>'
-
-
-    }
-    alert("All information is fill coorectly?")
-  }
-
-
-
-  const selectField = document.getElementById('areaOfInterest');
-  const otherInputContainer = document.getElementById('interest-others');
-  const otherInput = document.getElementById('otherInput');
-
-  selectField.addEventListener('change', function () {
-    if (selectField.value === 'Other') {
-      otherInputContainer.style.display = 'block';
-    } else {
-      otherInputContainer.style.display = 'none';
-      otherInput.value = ''; // Clear the input if not 'other'
-    }
-  });
-
-
-  const citiesByState = {
-    andhra_pradesh: ["Hyderabad", "Visakhapatnam", "Vijayawada", "Guntur"],
-    maharashtra: ["Mumbai", "Pune", "Nagpur", "Nashik"],
-    tamil_nadu: ["Chennai", "Coimbatore", "Madurai", "Salem"],
-    // Add more states and their cities here
-  };
-
-
-  function handlePrevBtn(prvSection) {
-    console.log("in function ...", prvSection);
-    prvSection.style.display = 'block'
-    console.log("out function ...", prvSection);
-
-
-  }
-  function populateCities() {
-    const stateSelect = document.getElementById("stateSelect");
-    const citySelect = document.getElementById("citySelect");
-    const selectedState = stateSelect.value;
-    const cities = citiesByState[selectedState] || [];
-
-    // Clear existing city options
-    citySelect.innerHTML = '<option value="">-- Select City --</option>';
-
-    // Add city options for the selected state
-    cities.forEach((city) => {
-      const option = document.createElement("option");
-      option.value = city;
-      option.textContent = city;
-      citySelect.appendChild(option);
-    });
-  }
-
-  // Trigger initial population of cities when the page loads
-  populateCities();
-
-
-  var passwordInput = document.querySelector('form #password');
-  var cnfrmPasswordInput = document.querySelector('form #cnrfpassword');
-  var passwordRulesElement = document.querySelector('form #passwordRules');
-  var cnfrmPasswordInputTextContent = document.querySelector('form #cnfrmPasswordInputTextContent')
-  // console.log("####",passwordInput,passwordRulesElement)
-
-  passwordInput.addEventListener('input', checkPasswordRules);
-
-  function checkPasswordRules() {
-    const password = passwordInput.value;
-    const rules = [];
-
-    // Check minimum length
-    if (password.length < 8) {
-      rules.push('Minimum length: 8 characters');
-    }
-
-    // Check complexity
-    if (!/[A-Z]/.test(password)) {
-      rules.push('Include at least one uppercase letter');
-    }
-    if (!/[a-z]/.test(password)) {
-      rules.push('Include at least one lowercase letter');
-    }
-    if (!/\d/.test(password)) {
-      rules.push('Include at least one number');
-    }
-    if (!/[\W_]/.test(password)) {
-      rules.push('Include at least one special character');
-    }
-
-    // Check common passwords
-    const commonPasswords = ['password', '123456', 'qwerty', 'abc123']; // Add more if needed
-    if (commonPasswords.includes(password.toLowerCase())) {
-      rules.push('Choose a stronger password');
-    }
-
-    // Check username in password
-    const username = 'exampleUser'; // Replace with the actual username or fetch from the server
-    if (password.toLowerCase().includes(username.toLowerCase())) {
-      rules.push('Avoid using your username in the password');
-    }
-
-    // Check for dictionary words or easily guessable information
-    const dictionaryWords = ['example', 'password', 'user']; // Add more if needed
-    if (dictionaryWords.some(word => password.toLowerCase().includes(word))) {
-      rules.push('Avoid using dictionary words or easily guessable information');
-    }
-
-    // Display password rules
-    if (rules.length === 0) {
-      passwordRulesElement.textContent = 'Password is strong!';
-    } else {
-      passwordRulesElement.textContent = rules.join('\n');
-    }
-  }
-
-  cnfrmPasswordInput.addEventListener('keyup', () => {
-
-    if ((passwordInput.value) != (cnfrmPasswordInput.value)) {
-
-      cnfrmPasswordInputTextContent.textContent = "password does not match";
-
-    }
-    else {
-
-      cnfrmPasswordInputTextContent.textContent = "";
-    }
-
-
-
-  })
+    })
 
 </script>
 {% endblock js %}

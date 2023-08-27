@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect, HttpResponse
-
+from django.contrib.auth.models import User
+from vibhaApp.models import Registration, Email_Verification
+from django.conf import settings
+# from vibhAuth import email_verify
 from django.contrib import messages
 
 # Create your views here.
@@ -46,11 +49,8 @@ def registration(request):
         name = request.POST.get('name')
         gender = request.POST.get('gender')
         dob = request.POST.get('dob')
-        areaOfInterest = request.POST.get('areaOfInterest')
-        otherInterest = ""
-        if areaOfInterest == "Other":
-            otherInterest = request.POST.get('otherInterest')
-        
+        areaOfInterest = request.POST.get('areaOfInterest')       
+        otherInterest = ""        
         instituteName = request.POST.get('instituteName')
         designation = request.POST.get('designation')
         priEmail = request.POST.get('pri-email')
@@ -58,8 +58,16 @@ def registration(request):
         priWhatsapp = request.POST.get('pri-whatsapp')
         pass1 = request.POST.get('pass1')
         pass2 = request.POST.get('pass2')
+
+        if areaOfInterest == "Other":
+            otherInterest = request.POST.get('otherInterest')
+
         if pass1 != pass2:
             messages.add_message(request, messages.INFO, "PASSWORD NOT MATCH!!")
+            return redirect('http://127.0.0.1:8000/registration/') 
+        
+        if Registration.objects.filter(primary_email = primary_email,primary_mobile = primary_mobile).exists():
+            messages.add_message(request, messages.WARNING, "USER IS ALREADY EXIST")
             return redirect('http://127.0.0.1:8000/registration/') 
         
         countrySelect = request.POST.get('countrySelect')
@@ -72,6 +80,7 @@ def registration(request):
         print("***")
         # membershipPrice = request.POST.get('membershipPrice')
         # membershipPrice = request.POST.get('membershipPrice')
+
 
 
     return render(request, 'vibhaApp/registration.html',{"title":title})
