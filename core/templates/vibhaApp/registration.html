@@ -164,7 +164,7 @@
               <div class="form-group mt-3">
                 <label for="pri-whatsapp mb-2">Enter Your Primary Whatsapp Number<span class="text-danger">
                     *</span></label>
-                <input type="text" name="Primary-Whatsapp" class="form-control"
+                <input type="text" name="Primary-WhatsApp" class="form-control"
                   placeholder="Enter Primary Whatsapp NUmber" required>
               </div>
 
@@ -200,7 +200,7 @@
               <div class="form-group mt-3">
 
                 <label for="countrySelect" class="mb-2">Select Country:<span class="text-danger"> *</span></label><br>
-                <select class="form-control" id="countrySelect" name="countrySelect" required>
+                <select class="form-control" id="countrySelect" name="Country" required>
                   <option value="" disabled selected>-- Select Country --</option>
                   <option value="India">India</option>
 
@@ -209,7 +209,7 @@
 
               <div class="form-group mt-3">
                 <label for="stateSelect" class="mb-2">Select State:<span class="text-danger"> *</span></label><br>
-                <select class="form-control" id="stateSelect" name="selectState" onchange="populateCities()">
+                <select class="form-control" id="stateSelect" name="State" onchange="populateCities()">
                   <option value="">-- Select State --</option>
                   <option value="andhra_pradesh">Andhra Pradesh</option>
                   <option value="maharashtra">Maharashtra</option>
@@ -221,21 +221,21 @@
 
               <div class="form-group mt-3">
                 <label for="citySelect" class="mb-2">Select City:<span class="text-danger"> *</span></label><br>
-                <select class="form-control" name="selectCity" id="citySelect">
+                <select class="form-control" name="City" id="citySelect">
                   <option value="">-- Select City --</option>
                 </select>
               </div>
 
               <div class="form-group mt-3">
                 <label for="pinCode mb-2">Enter Pin/Zip Code<span class="text-danger"> *</span></label>
-                <input type="text" id="pinCode" class="form-control" name="pinCode" placeholder="Example, 411011"
+                <input type="text" id="pinCode" class="form-control" name="Pin-Code" placeholder="Example, 411011"
                   required>
               </div>
 
               <div class="form-group mt-3">
                 <label for="postAddress mb-2">Enter Postal Address<span class="text-danger"> *</span></label><br>
                 <!-- <input type="text" id="postAddress" class="form-control" placeholder="Enter postal address" required> -->
-                <textarea class="form-control mt-2" name="postAddress" id="postAddress" cols="50" rows="5"></textarea>
+                <textarea class="form-control mt-2" name="Postal-Address" id="postAddress" cols="50" rows="4"></textarea>
               </div>
 
               <div class="form-buttons mt-3">
@@ -249,76 +249,13 @@
               <div class="container">
                 <table class="table table-hover table-bordered">
                   <tbody>
-                    <!-- <tr>
-                    <th scope="row">Membership</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Country</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">State</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">District</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Prant</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Pincode</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Postal Address</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Name</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Gender</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Date-of-Birth</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Area of Interest</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Affliated Institute</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="Designation">Designation</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="Email">Email</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="Primary-Mobile">Primary Mobile</th>
-                    <td id="">Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="Whatsapp-Mobile">Whatsapp Mobile</th>
-                    <td id="">Mark</td>
-                  </tr> -->
+                    
                   </tbody>
                 </table>
 
                 <div class="form-group">
                   <div class="form-check">
-                    <input class="form-check-input" name="acceptTerms" type="checkbox" id="gridCheck" checked>
+                    <input class="form-check-input" name="Accept-Terms" type="checkbox" id="gridCheck" value="Accepted" checked>
                     <label class="form-check-label" for="gridCheck">
                       I accept all <a href="">terms and conditions</a>related to VIBHA registration.
                     </label>
@@ -404,7 +341,7 @@
         console.log("yes")
         
       }
-      alert("All information is fill coorectly?")
+      confirm("All information is fill coorectly?")
       previewInputs.innerHTML = insertHtml
     }
 

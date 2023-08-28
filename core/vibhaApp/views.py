@@ -44,23 +44,23 @@ def photo_gallery(request):
 def registration(request):
     title = '''Vibha UP - Registration'''
     if request.method == 'POST':
-        membershipPrice = request.POST.get('membershipPrice')
-        selectStatus = request.POST.get('selectStatus')
-        name = request.POST.get('name')
-        gender = request.POST.get('gender')
-        dob = request.POST.get('dob')
-        areaOfInterest = request.POST.get('areaOfInterest')       
+        membershipPrice = request.POST.get('Membership ')
+        selectStatus = request.POST.get('Select-Status')
+        name = request.POST.get('Name')
+        gender = request.POST.get('Gender')
+        dob = request.POST.get('DOB')
+        areaOfInterest = request.POST.get('Area-Of-Interest')       
         otherInterest = ""        
-        instituteName = request.POST.get('instituteName')
-        designation = request.POST.get('designation')
-        priEmail = request.POST.get('pri-email')
-        priMobile = request.POST.get('pri-mobile')
-        priWhatsapp = request.POST.get('pri-whatsapp')
-        pass1 = request.POST.get('pass1')
-        pass2 = request.POST.get('pass2')
+        instituteName = request.POST.get('Institute-Name')
+        designation = request.POST.get('Designation')
+        priEmail = request.POST.get('Primary-Email')
+        priMobile = request.POST.get('Primary-Mobile')
+        priWhatsapp = request.POST.get('Primary-WhatsApp')
+        pass1 = request.POST.get('Pass1')
+        pass2 = request.POST.get('Pass2')
 
         if areaOfInterest == "Other":
-            otherInterest = request.POST.get('otherInterest')
+            otherInterest = request.POST.get('Other-Interest')
 
         if pass1 != pass2:
             messages.add_message(request, messages.INFO, "PASSWORD NOT MATCH!!")
@@ -70,11 +70,12 @@ def registration(request):
             messages.add_message(request, messages.WARNING, "USER IS ALREADY EXIST")
             return redirect('http://127.0.0.1:8000/registration/') 
         
-        countrySelect = request.POST.get('countrySelect')
-        selectState = request.POST.get('selectState')
-        selectCity = request.POST.get('selectCity')
-        pinCode = request.POST.get('pinCode')
-        postAddress = request.POST.get('postAddress')
+        countrySelect = request.POST.get('Country')
+        selectState = request.POST.get('State')
+        selectCity = request.POST.get('City')
+        pinCode = request.POST.get('Pin-Code')
+        postAddress = request.POST.get('Postal-Address')
+        terms = request.POST.get('Accept-Terms')
         print("***")
         print(membershipPrice,selectStatus,name,gender,dob,areaOfInterest,otherInterest,instituteName,designation,priEmail,priMobile,priWhatsapp,pass1,pass2,countrySelect,selectState,selectCity,pinCode,postAddress)
         print("***")

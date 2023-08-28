@@ -29,6 +29,7 @@ class Registration(models.Model):
     district = models.CharField(default="",max_length=80)
     dob = models.DateField(default="")
     membership_fee = models.CharField(max_length=30,default="1000 individual")
+    accept_terms = models.CharField(default="False",max_length=20)
 
     isEmailVerified = models.BooleanField(default=False)
     isPaid = models.BooleanField(default=False)
