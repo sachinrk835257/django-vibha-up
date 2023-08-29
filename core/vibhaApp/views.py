@@ -3,7 +3,10 @@ from django.contrib.auth.models import User
 from vibhaApp.models import Registration, Email_Verification
 from django.conf import settings
 # from vibhAuth import email_verify
+from vibhaApp.email_otp import send_mail
 from django.contrib import messages
+import uuid
+import random
 
 # Create your views here.
 def index(request):
@@ -44,7 +47,7 @@ def photo_gallery(request):
 def registration(request):
     title = '''Vibha UP - Registration'''
     if request.method == 'POST':
-        membershipPrice = request.POST.get('Membership ')
+        membershipPrice = request.POST.get('Membership')
         selectStatus = request.POST.get('Select-Status')
         name = request.POST.get('Name')
         gender = request.POST.get('Gender')
@@ -66,9 +69,9 @@ def registration(request):
             messages.add_message(request, messages.INFO, "PASSWORD NOT MATCH!!")
             return redirect('http://127.0.0.1:8000/registration/') 
         
-        if Registration.objects.filter(primary_email = primary_email,primary_mobile = primary_mobile).exists():
-            messages.add_message(request, messages.WARNING, "USER IS ALREADY EXIST")
-            return redirect('http://127.0.0.1:8000/registration/') 
+        # if Registration.objects.filter(primary_email = priEmail,primary_mobile = priMobile).exists():
+        #     messages.add_message(request, messages.WARNING, "USER IS ALREADY EXIST")
+        #     return redirect('http://127.0.0.1:8000/registration/') 
         
         countrySelect = request.POST.get('Country')
         selectState = request.POST.get('State')
@@ -79,8 +82,20 @@ def registration(request):
         print("***")
         print(membershipPrice,selectStatus,name,gender,dob,areaOfInterest,otherInterest,instituteName,designation,priEmail,priMobile,priWhatsapp,pass1,pass2,countrySelect,selectState,selectCity,pinCode,postAddress)
         print("***")
+
+        token = str(uuid.uuid4())
+        otp = str(random.randint(1000,9999))
+        Email_Verification.objects.create(user_uuid = token,user_email = priEmail,user_mobile = priMobile , user_otp = otp)
+        
         # membershipPrice = request.POST.get('membershipPrice')
         # membershipPrice = request.POST.get('membershipPrice')
+        send_mail(priEmail,otp)
+        messages.add_message(request, messages.SUCCESS, "EMAIL SENT SUCCESSFULLY")
+
+        register_obj = Registration.objects.create(accept_terms = terms,membership_fee = membership, dob = dob,district = selectCity, pin_code = pinCode, address = postAddress, state = selectState,country = countrySelect, interest = areaOfInterest, other_interest = otherInterest, full_name = name,institute_name = instituteName,designation =  designation, gender =gender, primary_email = priEmail, primary_mobile = priMobile,primary_whatsapp = priWhatsapp)
+
+        register_obj.save()
+        return redirect(f'http://127.0.0.1:8000/verify/{token}') 
 
 
 
@@ -89,3 +104,30 @@ def registration(request):
 def contact(request):
     title = '''Vibha UP - Contact Us'''
     return render(request, 'vibhaApp/contact-us.html',{"title":title})
+
+
+def verify_mail(request,token):
+    print("verification processing.....")
+    title = '''Email Verification'''
+    user_obj = Email_Verification.objects.filter(user_uuid=token).first()
+    print(user_obj)
+    if request.method == "POST":
+        fetch_otp = request.POST.get('otp')
+        print("fetched otp = ",fetch_otp)
+        print("register otp = ",user_obj.user_otp)
+        if user_obj.user_otp == fetch_otp:
+            user_obj.isVerified = True
+            register_obj = Registration.objects.get(primary_email = user_obj.user_email)
+            print(register_obj.isEmailVerified)
+            register_obj.isEmailVerified = True
+            register_obj.save()
+            messages.add_message(request, messages.SUCCESS, "Verification Done")
+            # return redirect('http://127.0.0.1:8000/registration/') 
+            return HttpResponse("email verification done")
+        else:        
+            print("fetched otp = ",fetch_otp)
+            print("register otp = ",user_obj.user_otp)
+            messages.add_message(request, messages.WARNING, "WRONG OTP!!")
+            return redirect(f'http://127.0.0.1:8000/verify/{token}') 
+
+    return render(request, 'vibhaAuth/email_otp.html',{"title":title,"email":user_obj.user_email})

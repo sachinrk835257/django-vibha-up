@@ -5,6 +5,7 @@ class Email_Verification(models.Model):
     user_email = models.EmailField(default="")
     user_mobile = models.CharField(max_length=10,default="")
     user_uuid = models.CharField(max_length=255, default="")
+    user_otp = models.CharField(max_length=4,default="")
     isVerified = models.BooleanField(default=False)
 
     def __str__(self) -> str:
@@ -12,7 +13,7 @@ class Email_Verification(models.Model):
     
 
 class Registration(models.Model):
-    primary_email = models.EmailField(default="",unique=True,blank=False,null=False)
+    primary_email = models.EmailField(default="",blank=False,null=False)
     primary_whatsapp = models.CharField(default="", max_length=10)
     primary_mobile = models.CharField(default="", max_length=10,unique=True,blank=False,null=False)
     gender = models.CharField(default="Male", max_length=6)

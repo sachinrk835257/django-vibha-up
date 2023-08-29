@@ -38,15 +38,8 @@
       {% endfor %}
       {% endif %}
 
-      {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-          {% endfor %}
-
-          {% endif %}
-          http://127.0.0.1:8000/registration/
-          <form action="#" method="post">{% csrf_token %}
+          
+          <form action="http://127.0.0.1:8000/registration/" method="post">{% csrf_token %}
             <!-- Section 1 -->
             <div class="page section1" id="form1">
               <h3>Step 1: Select Membership Category</h3>
@@ -260,6 +253,10 @@
                       I accept all <a href="">terms and conditions</a>related to VIBHA registration.
                     </label>
                   </div>
+                </div>
+                <div class="form-buttons mt-3">
+                  <button type="button" class="btn btn-primary prevBtn">Previous</button>
+                  <button type="submit" class="btn btn-primary">SUBMIT</button>
                 </div>
 
               </div>

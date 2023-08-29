@@ -36,11 +36,22 @@
               <p class="ml-2 mb-0 jumbo-mail" style="font-size: 14px;padding-left: 14px;">Contact Email <a
                   href="mailto:vibhabharatiupawadh@gmail.com">vibhabharatiupawadh@gmail.com</a>
               </p>
-              <div class="login-area">
-                <a href="http://127.0.0.1:8000/registration/"><i class="fa-solid fa-user"></i> New Registration</a>
-                <a class="seperator" data-bs-toggle="modal" data-bs-target="#myModal" href="##"><i
-                    class="fa-solid fa-lock"></i> Sign In</a>
-              </div>
+
+              {% if user.is_authenticated %}
+        
+<div class="login-area">
+  <i class="fa-solid fa-user"></i><p class="ml-2 mb-0" style="font-size:">Welcome {{user.first_name}}
+</p>
+  <a class="seperator" href="/logout/"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+</div>
+{% else %}
+    
+<div class="login-area">
+  <a href="http://127.0.0.1:8000/registration/"><i class="fa-solid fa-user"></i> New Registration</a>
+  <a class="seperator" data-bs-toggle="modal" data-bs-target="#myModal" href="##"><i
+      class="fa-solid fa-lock"></i> Sign In</a>
+</div>
+{% endif %}
             </div>
           </div>
       
@@ -252,18 +263,20 @@
     </div>
 
     <!-- Modal body -->
-    <form action="">
+    {% if not user.is_authenticated %}
+  
+    <form action="/">
       <div class="modal-body">
         <div class="input-group">
           <div>
 
             <label for="email-input" class="mb-2">Email</label>
-            <input type="email" class="form-control" placeholder="Enter email address..." name="email-input" id="email-input">
+            <input type="email" name="email" class="form-control" placeholder="Enter email address..." name="email-input" id="email-input">
           </div>
           <div>
 
             <label for="pswrd-input" class="mb-2">Password </label>
-            <input type="password" class="form-control" placeholder="Enter password...." name="pswrd-input" id="pswrd-input">
+            <input type="password" name="password" class="form-control" placeholder="Enter password...." name="pswrd-input" id="pswrd-input">
           </div>
         </div>
       </div>
@@ -276,6 +289,7 @@
         <button type="submit" class="btn btn-danger">Submit</button>
       </div>
     </form>
+{% endif %}
   </div>
 </div>
 </div> 

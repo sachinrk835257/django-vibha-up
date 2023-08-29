@@ -14,4 +14,5 @@ urlpatterns = [
     path('our-team/',views.our_team, name="about page"),
     path('photo-gallery/',views.photo_gallery, name="about page"),
     path('registration/',views.registration, name="about page"),
+    path('verify/<token>', views.verify_mail, name="verify mail with unique uuid")
 ]
