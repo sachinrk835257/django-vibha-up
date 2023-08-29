@@ -120,6 +120,7 @@ def verify_mail(request,token):
             register_obj = Registration.objects.get(primary_email = user_obj.user_email)
             print(register_obj.isEmailVerified)
             register_obj.isEmailVerified = True
+            user_obj.save()
             register_obj.save()
             messages.add_message(request, messages.SUCCESS, "Verification Done")
             # return redirect('http://127.0.0.1:8000/registration/') 
