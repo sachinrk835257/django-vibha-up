@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect, HttpResponse
 from django.contrib.auth.models import User
-from vibhaApp.models import Registration, Email_Verification
+from vibhaApp.models import Registration, Email_Verification ,Order
 from django.conf import settings
 # from vibhAuth import email_verify
 from vibhaApp.email_otp import send_mail
 from django.contrib import messages
+from decouple import config
 import uuid
 import random
+import razorpay
 
 # Create your views here.
 def index(request):
@@ -131,3 +133,27 @@ def verify_mail(request,token):
             return redirect(f'http://127.0.0.1:8000/verify/{token}') 
 
     return render(request, 'vibhaAuth/email_otp.html',{"title":title,"email":user_obj.user_email})
+
+
+def order_payment(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        client = razorpay.Client(auth=(config('RAZORPAY_KEY_ID'), config('RAZORPAY_KEY_SECRET')))
+        razorpay_order = client.order.create(
+            {"amount": int(amount) * 100, "currency": "INR", "payment_capture": "1"}
+        )
+        order = Order.objects.create(
+            name=name, amount=amount, provider_order_id=payment_order["id"]
+        )
+        order.save()
+        return render(
+            request,
+            "razorpay.html",
+            {
+                "callback_url": "http://" + "127.0.0.1:8000" + "/razo  rpay/callback/",
+                "razorpay_key": config('RAZORPAY_KEY_ID'),
+                "order": order,
+            },
+        )
+    return render(request, "razorpay.html.html")

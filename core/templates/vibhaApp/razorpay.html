@@ -1,0 +1,54 @@
+{% extends 'basic.html' %}
+{% block title %}{{title}}{% endblock title %}
+{% block css %}{% endblock css %}
+{% block main %}
+{% load static %}
+
+<main class="main-content">
+    <h2 class="header">Registration</h2>
+
+    <div class="payment">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+        
+            
+                
+                
+                
+        
+
+            <div class="col-6 mx-auto" style="margin-top:10%;">
+                <form action="{% url 'payment' %}" method='POST'>
+                    {% csrf_token %}
+                    <h3>Step 7: Payment for Membershipp</h3><br>
+                    <input type="text" class="form-control" disabled value="{{email}}">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Name</label>
+                      <input type="name" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Amount</label>
+                      <input type="number" name="amount" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div>
+                    <button type="submit" class="btn btn-primary">Pay Now</button>
+                    </div>
+                  </form>
+            </div>
+    </div>
+
+</main>
+
+{% endblock main %}
+
+{% block js %}
+
+{% endblock js %}
