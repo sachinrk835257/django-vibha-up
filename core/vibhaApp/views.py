@@ -113,14 +113,13 @@ def verify_mail(request,token):
     print(user_obj)
     if request.method == "POST":
         fetch_otp = request.POST.get('otp')
-        print("fetched otp = ",fetch_otp)
-        print("register otp = ",user_obj.user_otp)
         if user_obj.user_otp == fetch_otp:
             user_obj.isVerified = True
             register_obj = Registration.objects.get(primary_email = user_obj.user_email)
             print(register_obj.isEmailVerified)
             register_obj.isEmailVerified = True
             user_obj.save()
+            print(register_obj.isEmailVerified)
             register_obj.save()
             messages.add_message(request, messages.SUCCESS, "Verification Done")
             # return redirect('http://127.0.0.1:8000/registration/') 
