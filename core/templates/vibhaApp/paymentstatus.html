@@ -1,0 +1,36 @@
+
+{% extends 'basic.html' %}
+{% block main %}
+{% load static %}
+<form method="POST">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var options = {
+        key: "{{razorpay_key}}",
+        amount: "{{order.amount}}", 
+        currency: "INR",
+        name: "{{order.name}}",
+        description: "Test Transaction",
+        image: "{% static 'images/vibha bharati logo2.png' %}",
+        order_id: "{{order.provider_order_id}}",
+        callback_url: "{{callback_url}}",
+        redirect: true,
+        prefill: {
+            "name": "{{order.name}}",
+            "email": "{{order.email}}",
+            "contact": "{{order.phone_number}}"
+        },
+        notes: {
+            "address": "Razorpay Corporate Office"
+        },
+        theme: {
+            "color": "#3399cc"
+        }
+    };
+    console.log("options-- ",options)
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    </script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+</form>
+{% endblock main %}

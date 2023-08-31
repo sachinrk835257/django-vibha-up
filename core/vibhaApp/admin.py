@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vibhaApp.models import Email_Verification, Registration
+from vibhaApp.models import *
 
 # Register your models here.
 class emailVerAdminModel(admin.ModelAdmin):
@@ -11,3 +11,4 @@ class registerAdminModel(admin.ModelAdmin):
 
 admin.site.register(Email_Verification,emailVerAdminModel)
 admin.site.register(Registration,registerAdminModel)
+admin.site.register(Order)

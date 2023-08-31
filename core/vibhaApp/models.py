@@ -41,6 +41,8 @@ class Registration(models.Model):
 
 class Order(models.Model):
     name = models.CharField(_("Customer Name"), max_length=254, blank=False, null=False)
+    email = models.EmailField(_("Customer Email"), max_length=254, blank=False, null=False) #should be unique
+    phone_number = models.CharField(_("Customer Phone Number"), max_length=10, blank=False, null=False)    #should be unique
     amount = models.FloatField(_("Amount"), null=False, blank=False)
     status = models.CharField(
         _("Payment Status"),
@@ -60,6 +62,4 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id}-{self.name}-{self.status}"
-
-
+        return f"{self.id}-{self.email}-{self.name}-{self.status}"

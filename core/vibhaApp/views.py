@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect, HttpResponse
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from vibhaApp.models import Registration, Email_Verification ,Order
 from django.conf import settings
 # from vibhAuth import email_verify
@@ -8,6 +9,7 @@ from django.contrib import messages
 from decouple import config
 import uuid
 import random
+import json
 import razorpay
 
 # Create your views here.
@@ -109,51 +111,97 @@ def contact(request):
 
 
 def verify_mail(request,token):
-    print("verification processing.....")
+    # print("verification processing.....")
     title = '''Email Verification'''
     user_obj = Email_Verification.objects.filter(user_uuid=token).first()
-    print(user_obj)
+    # print(user_obj)
     if request.method == "POST":
         fetch_otp = request.POST.get('otp')
         if user_obj.user_otp == fetch_otp:
             user_obj.isVerified = True
             register_obj = Registration.objects.get(primary_email = user_obj.user_email)
-            print(register_obj.isEmailVerified)
+            # print(register_obj.isEmailVerified)
             register_obj.isEmailVerified = True
             user_obj.save()
-            print(register_obj.isEmailVerified)
+            # print(register_obj.isEmailVerified)
             register_obj.save()
             messages.add_message(request, messages.SUCCESS, "Verification Done")
-            # return redirect('http://127.0.0.1:8000/registration/') 
+            return redirect(f'http://127.0.0.1:8000/payment/{register_obj.id}') 
             return HttpResponse("email verification done")
         else:        
-            print("fetched otp = ",fetch_otp)
-            print("register otp = ",user_obj.user_otp)
             messages.add_message(request, messages.WARNING, "WRONG OTP!!")
             return redirect(f'http://127.0.0.1:8000/verify/{token}') 
 
     return render(request, 'vibhaAuth/email_otp.html',{"title":title,"email":user_obj.user_email})
 
 
-def order_payment(request):
+def order_payment(request,id):
+    title = '''Vibha UP - Pending Payment'''
+    register_obj = Registration.objects.filter(id = id).first()
+    print("in order_payment")
     if request.method == "POST":
         name = request.POST.get("name")
         amount = request.POST.get("amount")
+        phone_number = request.POST.get('phone_number')
+        email = request.POST.get('email')
+        payment_order_id = request.POST.get('payment_order_id')
         client = razorpay.Client(auth=(config('RAZORPAY_KEY_ID'), config('RAZORPAY_KEY_SECRET')))
         razorpay_order = client.order.create(
             {"amount": int(amount) * 100, "currency": "INR", "payment_capture": "1"}
         )
+        print("razorpay_order -- ",razorpay_order)
         order = Order.objects.create(
-            name=name, amount=amount, provider_order_id=payment_order["id"]
+            name=name, email = email, phone_number = phone_number, amount=amount,provider_order_id=razorpay_order["id"]
         )
         order.save()
         return render(
             request,
-            "razorpay.html",
+            "vibhaApp/paymentstatus.html",
             {
-                "callback_url": "http://" + "127.0.0.1:8000" + "/razo  rpay/callback/",
+                "callback_url": '''http://127.0.0.1:8000/razorpay/callback/''',
                 "razorpay_key": config('RAZORPAY_KEY_ID'),
                 "order": order,
             },
         )
-    return render(request, "razorpay.html.html")
+    return render(request, 'vibhaApp/razorpay.html', {"title":title,"user":register_obj,"amount":1000})
+
+@csrf_exempt
+def callback(request):
+    print("fdfffffffffffff", request.POST)
+    def verify_signature(response_data):
+        print("verify_signature",response_data["razorpay_payment_id"])
+        client = razorpay.Client(auth=(config('RAZORPAY_KEY_ID'), config('RAZORPAY_KEY_SECRET')))
+        print("status ---- ",client.utility.verify_payment_signature(response_data))
+        return client.utility.verify_payment_signature(response_data)
+
+    if "razorpay_signature" in request.POST: 
+        print("options -- ",request.POST)
+        payment_id = request.POST.get("razorpay_payment_id", "")
+        provider_order_id = request.POST.get("razorpay_order_id", "")
+        signature_id = request.POST.get("razorpay_signature", "")
+        order = Order.objects.get(provider_order_id=provider_order_id)
+        order.payment_id = payment_id
+        order.signature_id = signature_id
+        order.save()
+        if not verify_signature(request.POST):
+            order.status = 'SUCCESS' 
+            order.save()
+            return HttpResponse(f"{order.status}")
+            return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
+        else:
+            order.status = 'FAILURE'
+            order.save()
+            return HttpResponse(f"{order.status}")
+            return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
+    else:
+        print("else request -- ",request.POST)
+        payment_id = json.loads(request.POST.get("error[metadata]")).get("payment_id")
+        provider_order_id = json.loads(request.POST.get("error[metadata]")).get(
+            "order_id"
+        )
+        order = Order.objects.get(provider_order_id=provider_order_id)
+        order.payment_id = payment_id
+        order.status = 'FAILURE'
+        order.save()
+        return HttpResponse(f"outside else {order.status}")
+        return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
