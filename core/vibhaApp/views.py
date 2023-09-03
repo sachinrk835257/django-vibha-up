@@ -173,9 +173,11 @@ def callback(request):
         client = razorpay.Client(auth=(config('RAZORPAY_KEY_ID'), config('RAZORPAY_KEY_SECRET')))
         print("status ---- ",client.utility.verify_payment_signature(response_data))
         return client.utility.verify_payment_signature(response_data)
-
+    
+    print("hhg")
+    print("razorpay_signature" in request.POST)
     if "razorpay_signature" in request.POST: 
-        print("options -- ",request.POST)
+        # print("options -- ",request.POST)
         payment_id = request.POST.get("razorpay_payment_id", "")
         provider_order_id = request.POST.get("razorpay_order_id", "")
         signature_id = request.POST.get("razorpay_signature", "")
@@ -183,7 +185,7 @@ def callback(request):
         order.payment_id = payment_id
         order.signature_id = signature_id
         order.save()
-        if not verify_signature(request.POST):
+        if verify_signature(request.POST):
             order.status = 'SUCCESS' 
             order.save()
             return HttpResponse(f"{order.status}")
