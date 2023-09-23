@@ -93,7 +93,10 @@ def registration(request):
         
         # membershipPrice = request.POST.get('membershipPrice')
         # membershipPrice = request.POST.get('membershipPrice')
-        send_mail(priEmail,otp)
+        subject = '''VIBHA UP - Email Verification'''
+        message = "Dear User,\n"
+        html_message = f'<p>Email Verification -- OTP for verification is <strong> {otp} </strong>.</p>'
+        send_mail(priEmail,subject,message, html_message)
         messages.add_message(request, messages.SUCCESS, "EMAIL SENT SUCCESSFULLY")
 
         register_obj = Registration.objects.create(accept_terms = terms,membership_fee = membership, dob = dob,district = selectCity, pin_code = pinCode, address = postAddress, state = selectState,country = countrySelect, interest = areaOfInterest, other_interest = otherInterest, full_name = name,institute_name = instituteName,designation =  designation, gender =gender, primary_email = priEmail, primary_mobile = priMobile,primary_whatsapp = priWhatsapp)
@@ -181,23 +184,33 @@ def callback(request):
         payment_id = request.POST.get("razorpay_payment_id", "")
         provider_order_id = request.POST.get("razorpay_order_id", "")
         signature_id = request.POST.get("razorpay_signature", "")
+        print("4645646")
         order = Order.objects.get(provider_order_id=provider_order_id)
-        user = Registration.objects.get(order.email)
+        user = Registration.objects.filter(primary_email=order.email).first()
+        print("user",user)
         order.payment_id = payment_id
         order.signature_id = signature_id
         order.save()
+        print("9896")
         if verify_signature(request.POST):
             order.status = 'SUCCESS' 
             order.save()
+            print("64654")
             user.isPaid = True
             user.save()
+            subject = '''VIBHA UP - Payment Succesfull'''
+            message = "Dear User,\n"
+            html_message = f'<p>You have done payment .<br>Your <strong> payment id -- {order.payment_id} </strong>.</p>'
+            send_mail(user.primary_email,subject,message, html_message)
+            print("email gone")
 
             # return HttpResponse(f"{order.status}")
             return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
         else:
+            print("54554")
             order.status = 'FAILURE'
             order.save()
-            return HttpResponse(f"{order.status}")
+            # return HttpResponse(f"{order.status}")
             return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
     else:
         print("else request -- ",request.POST)
