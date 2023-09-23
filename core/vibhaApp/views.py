@@ -182,13 +182,17 @@ def callback(request):
         provider_order_id = request.POST.get("razorpay_order_id", "")
         signature_id = request.POST.get("razorpay_signature", "")
         order = Order.objects.get(provider_order_id=provider_order_id)
+        user = Registration.objects.get(order.email)
         order.payment_id = payment_id
         order.signature_id = signature_id
         order.save()
         if verify_signature(request.POST):
             order.status = 'SUCCESS' 
             order.save()
-            return HttpResponse(f"{order.status}")
+            user.isPaid = True
+            user.save()
+
+            # return HttpResponse(f"{order.status}")
             return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
         else:
             order.status = 'FAILURE'
@@ -205,5 +209,5 @@ def callback(request):
         order.payment_id = payment_id
         order.status = 'FAILURE'
         order.save()
-        return HttpResponse(f"outside else {order.status}")
+        # return HttpResponse(f"outside else {order.status}")
         return render(request, "vibhaApp/paymentstatus.html", context={"status": order.status})
